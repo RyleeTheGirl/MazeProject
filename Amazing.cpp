@@ -158,6 +158,43 @@ int main(int argc, char* argv[])
    
    game3.print();
    
+  //Test try-catch blocks.
+  try
+   {
+    game3.set_maze(nullptr, 7, 7);
+   }
+   catch(const char* msg)
+   {
+     cout << msg << endl;
+   }
+
+  try
+   {
+    game3.set_maze(b3, -7, 7);
+   }
+   catch(const char* msg)
+   {
+     cout << msg << endl;
+   }
+
+  try
+   {
+    game3.set_maze(b3, 7, -7);
+   }
+   catch(const char* msg)
+   {
+     cout << msg << endl;
+   }
+
+  char *testp = nullptr;
+   try
+   {
+    game3.set_maze(&testp, 7, 7);
+   }
+   catch(const char* msg)
+   {
+     cout << msg << endl;
+   }
 
    return 0;
 }

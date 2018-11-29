@@ -52,7 +52,7 @@ void Maze::set_maze (char ** maz, int numr, int numc) {
         for(int i2 = 0; i2 < cols; i2++)
         {
             if(amaze[i1][i2] != ' ' && amaze[i1][i2] != 'X' && amaze[i1][i2] != 'F')
-                throw "Error: Invalid Character in maze location" + i1 + i2;
+                throw "Error: Invalid Character in maze location";
         }
     }
 }
