@@ -59,52 +59,80 @@ bool Maze::check_if_open(int r, int c) {
     return false;
 }
 
-// Added this code, take a look and see if you have any changes or anything to add
+
+//  Solves maze given using vectors to search each spot
+//      and keep track of locations already searched/alternate routes
+//
+// Returns:
+//      true if F is found at current location, meaning maze is solvable using vectors
+//      false if there is no occurance of 'F' in the maze, meaning the maze is unsolvable using vectors
+//
 bool Maze::solve_with_vector () { 
+	//Creates two vectors to individually keep track or the row and column coordinates of alternate tacks
  	vector<int> alternativesR, alternativesC;
+	//Clears both vectors to begin
 	alternativesR.clear();
 	alternativesC.clear();
+	//Sets current location in maze to (0,0)
 	int r = 0;
 	int c = 0;
 
+	//Makes sure that the current location is always within the bounds of the rows and columns
 	while (within_bounds(r, c))
 	{
-		if (amaze[r][c] == 'F') return true;
-
+		//Checks to see if current location is the finish, and if it is, returns true
+		if (amaze[r][c] == 'F') 
+		{
+			return true;
+		}
+		//If not the finish, set current location to . meaning location has been searched
 		amaze[r][c] = '.';
-
+		
+		//Checks if position above current location is open
 		if (check_if_open(r-1, c) == true)
 		{
+			//If it is open, add the coordinates of the above position to the alternate route vectors
 			alternativesR.push_back(r-1);
 			alternativesC.push_back(c);
 		}
+		//Check if position to the right is open
 		if (check_if_open(r, c + 1) == true)
 		{
+			//If it is open, add the coordinates of the position to the right to the alternate route vectors
 			alternativesR.push_back(r);
 			alternativesC.push_back(c + 1);
 		}
+		//Check if position below current location is open
 		if (check_if_open(r + 1, c) == true)
 		{
+			//If it is open, add the coordinate of the position below to the alternate route vectors
 			alternativesR.push_back(r + 1);
 			alternativesC.push_back(c);
 		}
+		//Check if the position to the left is open
 		if (check_if_open(r, c - 1) == true)
 		{
+			//If it is open, add the coordinates of the position to the left to the alternate route vectors
 			alternativesR.push_back(r);
 			alternativesC.push_back(c - 1);
 		}
+		//Check if the alternate route vectors are empty
 		if (alternativesC.empty() == true && alternativesR.empty() == true)
 		{
+			//If they are empty, return false, meaning it is not possible to solve this maze with vectors
 			return false;
 		}
+		//Otherwise, if the alternate route vectors are not empty
 		else
 		{
+			//Set the current location to the last saved coordinates in the alternate route vectors
 			r = alternativesR.back();
 			alternativesR.pop_back();
 			c = alternativesC.back();
 			alternativesC.pop_back();
 		}
 	}
+	//If reach the end without findind finish, return false, meaning it is not possible to solve maze with vectors
 	return false;
 }
 
