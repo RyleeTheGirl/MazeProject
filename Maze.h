@@ -21,6 +21,8 @@ private:
     bool check_if_open(int row, int col); 
 			      // Check if open (not wall, not outside, not already searched, not a finish ...)
     bool finished(int row, int col);
+    
+    bool within_bounds(int row, int col);
 public:
     Maze();                   // constructor
     ~Maze();                  // destructor

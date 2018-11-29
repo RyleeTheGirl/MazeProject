@@ -47,11 +47,11 @@ bool Maze::check_if_open(int r, int c) {
     // '.' is already searched, 'F' is the finish, 'S' is the start, 'X' is wall
 	// We only check for this so we can be sure that when we get to the end we have
 	// checked all valid possibilities.
-    if (amaze[r][c] == '.' || amaze[r][c] == 'X' || amaze[r][c] == 'S' || amaze[r][c] == 'F') { // not open
+    if (amaze[r][c] == '.' || amaze[r][c] == 'X' || amaze[r][c] == 'S' ) { // not open
         return false;
     }
 	
-    if (amaze[r][c] == ' ' ) { // open
+    if (amaze[r][c] == ' ' || amaze[r][c] == 'F' ) { // open
         return true;
     }
     // If we get here it is something unexpected so its an error.
@@ -131,3 +131,15 @@ void Maze::print () {
     cout << endl;
 }    
 
+
+/* Purpose: Returns whether or not the searcher is within the Maze and not on the finish
+ * Parameters
+ *     row int : Provides current row position of searcher
+ *     col int : Provides current column position of searcher
+ * Returns
+ *     bool : Represents whether or not the searcher is within the Maze and not on the finish
+*/
+bool Maze::within_bounds(int row, int col)
+{
+    return ((row >= 0 && row <= rows) && (col >= 0 && col <= cols));
+}
