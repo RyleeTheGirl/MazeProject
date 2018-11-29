@@ -1,6 +1,6 @@
 /* 
  * File:   Maze.cpp
- * Author: Kathy
+ * Author: Rylee Noorda and Andrew Brown
  * This file contains the Maze class implementation.
  * See Maze.h for the Maze class definition (interface).
  */
@@ -59,10 +59,59 @@ bool Maze::check_if_open(int r, int c) {
     return false;
 }
 
-// YOUR COMMENTS GO HERE
+// Added this code, take a look and see if you have any changes or anything to add
 bool Maze::solve_with_vector () { 
-    // YOUR CODE GOES HERE
-    return false;
+ 	vector<int> alternativesR, alternativesC;
+	alternativesR.clear();
+	alternativesC.clear();
+	int r = 0;
+	int c = 0;
+	int solutionR;
+	int solutionC;
+	while (r != -1 && c != -1 && r <= rows && c <= cols && amaze[r][c] != 'F')
+	{
+		if (amaze[r][c] == 'F')
+		{
+			solutionR = r;
+			solutionC = c;
+			return true;
+		}
+
+		amaze[r][c] = '.';
+
+		if (check_if_open(r-1, c) == true)
+		{
+			alternativesR.push_back(r-1);
+			alternativesC.push_back(c);
+		}
+		if (check_if_open(r, c + 1) == true)
+		{
+			alternativesR.push_back(r);
+			alternativesC.push_back(c + 1);
+		}
+		if (check_if_open(r + 1, c) == true)
+		{
+			alternativesR.push_back(r + 1);
+			alternativesC.push_back(c);
+		}
+		if (check_if_open(r, c - 1) == true)
+		{
+			alternativesR.push_back(r);
+			alternativesC.push_back(c - 1);
+		}
+		if (alternativesC.empty() == true && alternativesR.empty() == true)
+		{
+			return false;
+		}
+		else
+		{
+			r = alternativesR.back();
+			alternativesR.pop_back();
+			c = alternativesC.back();
+			alternativesC.pop_back();
+		}
+	}
+	return false;
 }
 
 // Print the current state of the maze.
