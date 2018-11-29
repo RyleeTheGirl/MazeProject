@@ -89,35 +89,35 @@ bool Maze::solve_with_vector () {
 		amaze[r][c] = '.';
 		
 		//Checks if position above current location is open
-		if (check_if_open(r-1, c) == true)
+		if (check_if_open(r-1, c))
 		{
 			//If it is open, add the coordinates of the above position to the alternate route vectors
 			alternativesR.push_back(r-1);
 			alternativesC.push_back(c);
 		}
 		//Check if position to the right is open
-		if (check_if_open(r, c + 1) == true)
+		if (check_if_open(r, c + 1))
 		{
 			//If it is open, add the coordinates of the position to the right to the alternate route vectors
 			alternativesR.push_back(r);
 			alternativesC.push_back(c + 1);
 		}
 		//Check if position below current location is open
-		if (check_if_open(r + 1, c) == true)
+		if (check_if_open(r + 1, c))
 		{
 			//If it is open, add the coordinate of the position below to the alternate route vectors
 			alternativesR.push_back(r + 1);
 			alternativesC.push_back(c);
 		}
 		//Check if the position to the left is open
-		if (check_if_open(r, c - 1) == true)
+		if (check_if_open(r, c - 1))
 		{
 			//If it is open, add the coordinates of the position to the left to the alternate route vectors
 			alternativesR.push_back(r);
 			alternativesC.push_back(c - 1);
 		}
 		//Check if the alternate route vectors are empty
-		if (alternativesC.empty() == true && alternativesR.empty() == true)
+		if (alternativesC.empty() && alternativesR.empty())
 		{
 			//If they are empty, return false, meaning it is not possible to solve this maze with vectors
 			return false;
