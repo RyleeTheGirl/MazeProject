@@ -41,8 +41,17 @@ int main(int argc, char* argv[])
    for (int r=0; r<rows1; r++)
         b1[r] = maze1[r];
 
-   Maze game;    
+   Maze game;  
+
+   try
+   {  
    game.set_maze(b1, rows1, cols1);
+   }
+   catch(const char* msg)
+   {
+     cout << msg << endl;
+   }
+
    game.print();                    // Make sure its right.
    
    bool solved = game.solve_with_vector();
@@ -91,8 +100,9 @@ int main(int argc, char* argv[])
    }
    catch(const char* msg)
    {
-
+     cout << msg << endl;
    }
+
    game2.print();
    
    solved = game2.solve_with_vector();
@@ -131,8 +141,15 @@ int main(int argc, char* argv[])
 
    Maze game3;    // Do an unsolvable
    
-   game3.set_maze(b3, rows3, cols3);
-   
+   try
+   {
+    game3.set_maze(b3, rows3, cols3);
+   }
+   catch(const char* msg)
+   {
+     cout << msg << endl;
+   }
+
    game3.print();
    
    solved = game3.solve_with_vector();
