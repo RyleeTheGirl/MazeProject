@@ -29,6 +29,23 @@ void Maze::set_maze (char ** maz, int numr, int numc) {
     rows = numr; 
     cols = numc; 
     amaze = maz;
+	
+	if (maz == nullptr)
+	{
+		throw "Error: Maz is a Nullptr.";
+	}
+	if (*maz == nullptr)
+	{
+		throw "Error: *maz is a nullptr.";
+	}
+	if (rows < 0)
+	{
+		throw "Error: Number of rows is negative. Please enter valid number of rows.";
+	}
+	if (cols < 0)
+	{
+		throw "Error: Number of columns is negative. Please enter valid number of columns.";
+	}
 }
 
 // Determine if a row and column are inside the maze and 
