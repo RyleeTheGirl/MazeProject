@@ -1,6 +1,6 @@
 /* 
  * File:   AmazeMain.cpp
- * Author: Kathy
+ * Author: Rylee Noorda and Andrew Brown
  *
  * Create and solve a maze.
  *      Can use a stack or queue implementation.
