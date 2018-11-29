@@ -1,6 +1,6 @@
 /* 
  * File:   Maze.h
- * Author: Kathy
+ * Author: Rylee Noorda and Andrew Brown
  * This file contains the Maze class definition (interface).
  * See Maze.cpp for the Maze class implementation.
  */
