@@ -155,10 +155,10 @@ void Maze::print () {
 
 
 /* Purpose: Returns whether or not the searcher is within the Maze and not on the finish
- * Parameters
+ * Parameters:
  *     row int : Provides current row position of searcher
  *     col int : Provides current column position of searcher
- * Returns
+ * Returns:
  *     bool : Represents whether or not the searcher is within the Maze and not on the finish
 */
 bool Maze::within_bounds(int row, int col)
