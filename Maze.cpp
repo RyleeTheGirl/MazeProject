@@ -29,6 +29,15 @@ void Maze::set_maze (char ** maz, int numr, int numc) {
     rows = numr; 
     cols = numc; 
     amaze = maz;
+
+    for(int i1 = 0; i1 < rows; i1++)
+    {
+        for(int i2 = 0; i2 < cols; i2++)
+        {
+            if(amaze[i1][i2] != ' ' && amaze[i1][i2] != 'X' && amaze[i1][i2] != 'F')
+                throw "Error: Invalid Character in maze location" + i1 + i2;
+        }
+    }
 }
 
 // Determine if a row and column are inside the maze and 
@@ -165,3 +174,4 @@ bool Maze::within_bounds(int row, int col)
 {
     return ((row >= 0 && row < rows) && (col >= 0 && col < cols));
 }
+

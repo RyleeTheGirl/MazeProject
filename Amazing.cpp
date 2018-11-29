@@ -85,8 +85,14 @@ int main(int argc, char* argv[])
 
    Maze game2;    // Do another solvable different size
    
-   game2.set_maze(b2, rows2, cols2);
-   
+   try
+   {
+     game2.set_maze(b2, rows2, cols2);
+   }
+   catch(const char* msg)
+   {
+
+   }
    game2.print();
    
    solved = game2.solve_with_vector();
