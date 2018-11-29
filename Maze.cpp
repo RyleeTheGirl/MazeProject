@@ -66,16 +66,10 @@ bool Maze::solve_with_vector () {
 	alternativesC.clear();
 	int r = 0;
 	int c = 0;
-	int solutionR;
-	int solutionC;
-	while (r != -1 && c != -1 && r <= rows && c <= cols && amaze[r][c] != 'F')
+
+	while (within_bounds(r, c))
 	{
-		if (amaze[r][c] == 'F')
-		{
-			solutionR = r;
-			solutionC = c;
-			return true;
-		}
+		if (amaze[r][c] == 'F') return true;
 
 		amaze[r][c] = '.';
 
@@ -141,5 +135,5 @@ void Maze::print () {
 */
 bool Maze::within_bounds(int row, int col)
 {
-    return ((row >= 0 && row <= rows) && (col >= 0 && col <= cols));
+    return ((row >= 0 && row < rows) && (col >= 0 && col < cols));
 }
