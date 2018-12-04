@@ -93,9 +93,12 @@ bool Maze::check_if_open(int r, int c) {
 //      true if F is found at current location, meaning maze is solvable using vectors
 //      false if there is no occurance of 'F' in the maze, meaning the maze is unsolvable using vectors
 //
-bool Maze::solve_with_vector () { 
+Counter Maze::solve_with_vector () { 
 	//Creates two vectors to individually keep track or the row and column coordinates of alternate tacks
  	vector<int> alternativesR, alternativesC;
+
+	 Counter results;
+	 results.init();
 	//Clears both vectors to begin
 	alternativesR.clear();
 	alternativesC.clear();
@@ -109,10 +112,12 @@ bool Maze::solve_with_vector () {
 		//Checks to see if current location is the finish, and if it is, returns true
 		if (amaze[r][c] == 'F') 
 		{
-			return true;
+			results.solved = true;
+			return results;
 		}
 		//If not the finish, set current location to . meaning location has been searched
 		amaze[r][c] = '.';
+		results.count++;
 		
 		//Checks if position above current location is open
 		if (check_if_open(r-1, c))
@@ -146,7 +151,7 @@ bool Maze::solve_with_vector () {
 		if (alternativesC.empty() && alternativesR.empty())
 		{
 			//If they are empty, return false, meaning it is not possible to solve this maze with vectors
-			return false;
+			return results;
 		}
 		//Otherwise, if the alternate route vectors are not empty
 		else
@@ -159,7 +164,7 @@ bool Maze::solve_with_vector () {
 		}
 	}
 	//If reach the end without findind finish, return false, meaning it is not possible to solve maze with vectors
-	return false;
+	return results;
 }
 
 //  Solves maze given using vectors to search each spot
@@ -169,9 +174,12 @@ bool Maze::solve_with_vector () {
 //      true if F is found at current location, meaning maze is solvable using vectors
 //      false if there is no occurance of 'F' in the maze, meaning the maze is unsolvable using vectors
 //
-bool Maze::solve_with_vector_2 () { 
+Counter Maze::solve_with_vector_2 () { 
 	//Creates two vectors to individually keep track or the row and column coordinates of alternate tacks
  	vector<int> alternativesR, alternativesC;
+
+	 Counter results;
+	 results.init();
 	//Clears both vectors to begin
 	alternativesR.clear();
 	alternativesC.clear();
@@ -183,12 +191,14 @@ bool Maze::solve_with_vector_2 () {
 	while (within_bounds(r, c))
 	{
 		//Checks to see if current location is the finish, and if it is, returns true
-		if (amaze[r][c] == 'F') 
-		{
-			return true;
+		if (amaze[r][c] == 'F')
+		{ 
+			results.solved = true;
+			return results;
 		}
 		//If not the finish, set current location to . meaning location has been searched
 		amaze[r][c] = '.';
+		results.count++;
 		
 		//Checks if position above current location is open
 		if (check_if_open(r-1, c))
@@ -222,20 +232,20 @@ bool Maze::solve_with_vector_2 () {
 		if (alternativesC.empty() && alternativesR.empty())
 		{
 			//If they are empty, return false, meaning it is not possible to solve this maze with vectors
-			return false;
+			return results;
 		}
 		//Otherwise, if the alternate route vectors are not empty
 		else
 		{
 			//Set the current location to the last saved coordinates in the alternate route vectors
-			r = alternativesR.back();
-			alternativesR.pop_back();
-			c = alternativesC.back();
-			alternativesC.pop_back();
+			r = alternativesR[0];
+			alternativesR.erase(alternativesR.begin());
+			c = alternativesC[0];
+			alternativesC.erase(alternativesC.begin());
 		}
 	}
 	//If reach the end without findind finish, return false, meaning it is not possible to solve maze with vectors
-	return false;
+	return results;
 }
 
 // Print the current state of the maze.

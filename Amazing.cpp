@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "Maze.h"
+#include "StructCount.h"
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -45,7 +46,7 @@ int main(int argc, char* argv[])
 
    try
    {  
-   game.set_maze(b1, rows1, cols1);
+     game.set_maze(b1, rows1, cols1);
    }
    catch(const char* msg)
    {
@@ -54,9 +55,12 @@ int main(int argc, char* argv[])
 
    game.print();                    // Make sure its right.
    
-   bool solved = game.solve_with_vector();
-   if (solved == true) cout << "YEAH! solved with vector!\n";
+   Counter results1 = game.solve_with_vector();
+   Counter results2 = game.solve_with_vector_2();
+
+   if (results1.solved == true) cout << "YEAH! solved with vector!\n" << endl;
    else cout << "BOO! can't solve with vector!\n";
+   cout << ((results1.count == results2.count) ? "Solve_with_Vector is faster" : "Solve_with_Vector_2 is faster") << endl;
    game.print();
 
    
@@ -105,10 +109,11 @@ int main(int argc, char* argv[])
 
    game2.print();
    
-   solved = game2.solve_with_vector();
-   if (solved == true) cout << "YEAH! solved with vector!\n";
+   results1 = game2.solve_with_vector();
+
+   if (results1.solved == true) cout << "YEAH! solved with vector!\n" << endl;
    else cout << "BOO! can't solve with vector!\n";
-   
+   cout << "Number of spaces checked: " << results1.count  << endl;
    game2.print();
    
  //////////////////////////////////////////////////////////////////////////////
@@ -152,12 +157,63 @@ int main(int argc, char* argv[])
 
    game3.print();
    
-   solved = game3.solve_with_vector();
-   if (solved == true) cout << "YEAH! solved with vector!\n";
+   results1 = game3.solve_with_vector();
+
+   if (results1.solved == true) cout << "YEAH! solved with vector!\n" << endl;
    else cout << "BOO! can't solve with vector!\n";
-   
+
    game3.print();
+
+   //////////////////////////////////////////////////////////////////////
+
    
+   char maze4 [rows2][cols2] = {
+       {OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN},
+       {OPEN, WALL, WALL, WALL, WALL, OPEN, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, OPEN, WALL, WALL, WALL, WALL, OPEN},
+       {OPEN, WALL, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, WALL, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, WALL, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, WALL, OPEN, WALL, WALL, WALL, WALL, WALL, OPEN, WALL, WALL, WALL, WALL, OPEN, WALL, OPEN, WALL, OPEN},
+       {OPEN, OPEN, OPEN, WALL, OPEN, WALL, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, WALL, OPEN, WALL, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, WALL, OPEN, OPEN, OPEN, WALL, WALL, FINISH, WALL, WALL, OPEN, OPEN, WALL, OPEN, WALL, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, WALL, OPEN, WALL, OPEN, WALL, WALL, WALL, WALL, WALL, OPEN, OPEN, WALL, OPEN, WALL, OPEN, OPEN, OPEN},
+       {OPEN, WALL, OPEN, WALL, OPEN, WALL, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, WALL, OPEN, WALL, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, WALL, OPEN, WALL, WALL, WALL, OPEN, WALL, WALL, WALL, WALL, WALL, WALL, OPEN, WALL, OPEN, WALL, OPEN},
+       {OPEN, WALL, WALL, WALL, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, WALL, WALL, OPEN, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, OPEN, WALL, OPEN},
+       {OPEN, WALL, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, WALL, OPEN},
+       {OPEN, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, OPEN, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, OPEN},
+       {OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN, OPEN}
+
+   };
+
+ //////////////////////////////////////////////////////////////////////////////
+ 
+   // Very clumsy way to allow for variable rows and columns, for now.
+   b2[cols2];
+   for (int r=0; r<rows2; r++)
+        b2[r] = maze4[r];
+
+   Maze game4;    // Do another solvable different size
+   
+   try
+   {
+     game4.set_maze(b2, rows2, cols2);
+   }
+   catch(const char* msg)
+   {
+     cout << msg << endl;
+   }
+
+   game4.print();
+   
+   results2 = game4.solve_with_vector_2();
+
+   if (results2.solved == true) cout << "YEAH! solved with vector!\n" << endl;
+   else cout << "BOO! can't solve with vector!\n";
+   cout << "Number of spaces checked: " << results2.count  << endl;
+   game4.print();
+
   //Test try-catch blocks.
   try
    {

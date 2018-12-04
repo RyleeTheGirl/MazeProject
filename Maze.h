@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <vector>
+#include "StructCount.h"
 
 using namespace std;
 
@@ -27,8 +28,8 @@ public:
     Maze();                   // constructor
     ~Maze();                  // destructor
     void set_maze (char ** maz, int numr, int numc);
-    bool solve_with_vector(); // solves maze, alternate possible routes are saved in a vector
-    bool Maze::solve_with_vector_2();      
+    Counter solve_with_vector(); // solves maze, alternate possible routes are saved in a vector
+    Counter solve_with_vector_2();      
     void print ();            // prints current state of maze,
     // ' ' is open, 'X' is wall, 'F' is finish, '.' is searched
 };
